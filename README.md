@@ -24,13 +24,13 @@ Step into the realm of knowledge and fun with our interactive quiz platform! Tes
 
 **Key Features:**
 
-# Quiz Experience: Engage in an exciting quiz experience with a series of thought-provoking questions.
+- Quiz Experience: Engage in an exciting quiz experience with a series of thought-provoking questions.
 
-# Timer Functionality: A countdown timer adds an element of challenge, keeping the quiz engaging and competitive.
+- Timer Functionality: A countdown timer adds an element of challenge, keeping the quiz engaging and competitive.
 
-# Multiple-Choice Format: Answer questions by choosing from multiple options, each designed to test your knowledge.
+- Multiple-Choice Format: Answer questions by choosing from multiple options, each designed to test your knowledge.
 
-# Immediate Feedback: Receive instant feedback on your answers, with correct solutions provided.
+- Immediate Feedback: Receive instant feedback on your answers, with correct solutions provided.
 
 **Goals and Results:**
 
