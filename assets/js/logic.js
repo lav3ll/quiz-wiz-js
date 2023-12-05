@@ -63,17 +63,18 @@ const questions = [
 ];
 
 // Create Timer
+let currentQuestionIndex = 0;
 let timeLeft = 75;
+let countdownTimer;
 
 function countdown() {
   timeEl.textContent = timeLeft;
-
-  const countdownTimer = setInterval(function () {
+  countdownTimer = setInterval(function () {
     timeLeft--;
     timeEl.textContent = timeLeft;
-
     if (timeLeft <= 0) {
       clearInterval(countdownTimer);
+      endQuiz();
     }
   }, 1000);
 }
@@ -84,32 +85,52 @@ function startQuiz() {
   alert("Quiz has begun");
   startScreenEl.classList.add("hide");
   questionsEl.classList.remove("hide");
-  generateQuestions();
+  displayNextQuestion();
   countdown();
 }
 
 // Create a function that generates the questions
-function generateQuestions() {
-  questionTitleEl.textContent = questions[0].title;
-  const oLEl = document.createElement("ol");
-  choicesEl.appendChild(oLEl);
+function displayNextQuestion() {
+  if (currentQuestionIndex < questions.length) {
+    const currentQuestion = questions[currentQuestionIndex];
+    questionTitleEl.textContent = currentQuestion.title;
+    choicesEl.innerHTML = ""; // Clear previous choices
 
-  const choices = ["a", "b", "c", "d"];
+    const choices = ["a", "b", "c", "d"];
 
-  for (let i = 0; i < choices.length; i++) {
-    const liButton = document.createElement("button");
-    const liEl = document.createElement("li");
+    for (let i = 0; i < choices.length; i++) {
+      const liButton = document.createElement("button");
+      const liEl = document.createElement("li");
 
-    liButton.textContent = questions[0][choices[i]][0];
-    liButton.classList.add("choice-button"); // Adding a class for styling (optional)
+      liButton.textContent = currentQuestion[choices[i]][0];
+      liButton.classList.add("choice-button");
+      liButton.setAttribute("data-answer", currentQuestion[choices[i]][1]);
 
-    const listItemText = document.createTextNode(
-      `${choices[i].toUpperCase()}: `
-    ); // Displaying the list item number
-    liEl.appendChild(listItemText);
-    liEl.appendChild(liButton);
+      liButton.addEventListener("click", function () {
+        const isCorrect = JSON.parse(this.getAttribute("data-answer"));
+        if (!isCorrect) {
+          timeLeft -= 10; // Subtract 10 seconds for wrong answer
+          if (timeLeft < 0) timeLeft = 0;
+        }
+        currentQuestionIndex++;
+        displayNextQuestion();
+      });
 
-    oLEl.appendChild(liEl);
+      const listItemText = document.createTextNode(
+        `${choices[i].toUpperCase()}: `
+      ); // Displaying the list item number
+      liEl.appendChild(listItemText);
+      liEl.appendChild(liButton);
+
+      choicesEl.appendChild(liEl);
+    }
+  } else {
+    endQuiz();
   }
 }
+
+function endQuiz() {
+  clearInterval(countdownTimer);
+}
+
 startBtn.addEventListener("click", startQuiz);
