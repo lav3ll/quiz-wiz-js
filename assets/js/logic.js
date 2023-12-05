@@ -134,3 +134,5 @@ function endQuiz() {
 }
 
 startBtn.addEventListener("click", startQuiz);
+
+// Create Game Over Function
