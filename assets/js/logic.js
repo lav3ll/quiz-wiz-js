@@ -79,8 +79,6 @@ function countdown() {
   }, 1000);
 }
 
-console.log(questions[1].a[0]);
-
 function startQuiz() {
   alert("Quiz has begun");
   startScreenEl.classList.add("hide");
